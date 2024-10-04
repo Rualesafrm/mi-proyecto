@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de Evaluación</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        h3 {
+            color: #007bff;
+            margin-top: 20px;
+        }
+        table {
+            margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            text-align: center;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px; /* Espacio entre los gráficos */
+            margin-top: 20px;
+        }
+        .grafico {
+            border: 1px solid #007bff;
+            border-radius: 0.5rem;
+            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        img {
+            max-width: 100%; /* Para que las imágenes se ajusten al contenedor */
+            height: auto; /* Mantener la proporción */
+            border-radius: 0.5rem; /* Bordes redondeados para las imágenes */
+        }
+        .recomendacion {
+            margin-top: 20px;
+        }
+        .alert {
+            font-size: 1.2em; /* Tamaño de fuente */
+            border-radius: 0.5rem; /* Bordes redondeados */
+        }
+        .alert-info {
+            background-color: #e9f7fe; /* Color de fondo suave */
+            border-color: #b0e0f3; /* Color del borde */
+            color: #007bff; /* Color del texto */
+        }
+        .alert-danger {
+            background-color: #f8d7da; /* Color de fondo suave para errores */
+            border-color: #f5c6cb; /* Color del borde */
+            color: #721c24; /* Color del texto para errores */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Resultados de Evaluación de Proveedores</h1>
+        <h3>Mejor Proveedor: {{ mejor_proveedor.nombre }}</h3>
+        
+        <h4>Tabla de Proveedores</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Tiempo de Entrega</th>
+                    <th>Calidad</th>
+                    <th>Puntuación</th>
+                    <th>Clasificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in df.iterrows() %}
+                <tr>
+                    <td>{{ row.nombre }}</td>
+                    <td>{{ row.precio }}</td>
+                    <td>{{ row.tiempo_entrega }}</td>
+                    <td>{{ row.calidad }}</td>
+                    <td>{{ row.puntuacion }}</td>
+                    <td>{{ row.calidad_clasificada }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Gráficos</h3>
+        <div class="grid-container">
+            <div class="grafico">
+                <img src="{{ imagen_puntuaciones }}" alt="Gráfico de Puntuaciones">
+            </div>
+            <div class="grafico">
+                <img src="{{ imagen_arbol }}" alt="Árbol de Decisión">
+            </div>
+            <div class="grafico">
+                <img src="{{ imagen_radar }}" alt="Gráfico de Radar">
+            </div>
+            <div class="grafico">
+                <img src="{{ imagen_dispersión }}" alt="Gráfico de Dispersión">
+            </div>
+            <div class="grafico">
+                <img src="{{ imagen_box }}" alt="Gráfico de Boxplot">
+            </div>
+        </div>
+
+        <h3 class="mt-4">Recomendación Final</h3>
+        <div class="recomendacion">
+            {% if recomendacion_final.nombre %}
+                <div class="alert alert-info" role="alert">
+                    <strong>Proveedor recomendado:</strong> {{ recomendacion_final.nombre }}<br>
+                    <span>{{ mensaje_recomendacion if mensaje_recomendacion else 'Este proveedor es el mejor basado en la evaluación.' }}</span>
+                </div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>No se ha elegido ningún proveedor.</strong><br>
+                    <span>{{ mensaje_recomendacion if mensaje_recomendacion else 'Por favor, revisa los criterios de evaluación.' }}</span>
+                </div>
+            {% endif %}
+        </div>
+
+        <h3>Descargar Reporte</h3>
+        <a href="{{ url_for('descargar_pdf') }}" class="btn btn-primary">Descargar como PDF</a>
+    </div>
+</body>
+</html>
