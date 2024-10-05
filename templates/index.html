@@ -65,13 +65,13 @@
         <form action="/calcular" method="POST">
             <h4>Asignación del nivel de importancia para cada criterio</h4>
             <div class="instrucciones">
-                <p>Aplicación de arboles de decision para clasificar y ponderación para la eleccion del mejor proveeedor</p>
+                <p>Aplicación para la elección del mejor proveeedor, mediante árboles de decisión, método de ponderación y método multicriterio.</p>
                 <p>En una escala de 0 - 1, donde 0 es el menos importante y 1 el más importante, ingresa el valor en cada casilla de tal forma que sumen 1.</p>
                 <p><strong>Por ejemplo:</strong></p>
-                <p>Peso precio: <strong>0.2</strong></p>
+                <p>Peso Precio: <strong>0.2</strong></p>
                 <p>Peso Tiempo de Entrega: <strong>0.2</strong></p>
                 <p>Peso Calidad: <strong>0.6</strong></p>
-                <p>En este ejemplo estamos diciendo que lo más importante para nosotros sería la calidad y que precio y tiempo son iguales en nivel de importancia.</p>
+                <p>En este ejemplo, el criterio de mayor importancia es la calidad y el precio y el tiempo de entrega son iguales pero a menor nivel de importancia.</p>
             </div>
             <div class="form-group">
                 <label for="peso_precio">Peso Precio:</label>
@@ -89,8 +89,8 @@
             <div id="proveedores">
                 <div class="proveedor">
                     <input type="text" name="nombre_0" placeholder="Nombre del Proveedor" class="form-control mb-2" required>
-                    <input type="number" step="0.01" name="precio_0" placeholder="Precio (0-1000000 $)" class="form-control mb-2" required>
-                    <input type="number" step="0.01" name="tiempo_0" placeholder="Tiempo entrega (1-10 días)" class="form-control mb-2" required>
+                    <input type="number" step="0.01" name="precio_0" placeholder="Precio ($0-$1.000.000)" class="form-control mb-2" required>
+                    <input type="number" step="0.01" name="tiempo_0" placeholder="Tiempo de entrega (1-10 días)" class="form-control mb-2" required>
                     <input type="number" step="1" name="calidad_0" placeholder="Calidad (1-10)" class="form-control mb-2" required>
                 </div>
             </div>
